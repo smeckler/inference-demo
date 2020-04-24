@@ -1,0 +1,21 @@
+target/**
+fusekidata/**
+*.log
+*.gz
+
+### VS Code ###
+.classpath
+.project
+.vscode/settings.json
+.settings
+.attach*
+.factorypath
+.test.json
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/
