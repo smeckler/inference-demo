@@ -9,7 +9,7 @@
 
 # 2 endpoints: one for data, one for reasoning
 # data endpoint (TDB): e.g.
-#   ontology in named graph <http://demo.de/rules>
+#   ontology in named graph <http://demo.de/ontology>
 #   data in named graph <http://demo.de/data>
 #   content from every named graph in <urn:x-arq:UnionGraph>
 # reasoning endpoint:
@@ -55,6 +55,8 @@
     ja:baseModel :g ;
     ja:reasoner  [ 
         ja:reasonerURL <http://jena.hpl.hp.com/2003/OWLFBRuleReasoner> ; 
+#        ja:reasonerURL <http://jena.hpl.hp.com/2003/OWLMicroFBRuleReasoner> ;
+#        ja:reasonerURL <http://jena.hpl.hp.com/2003/RDFSExptRuleReasoner> ;
     ] ;
 .
 

@@ -18,12 +18,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Component
-public class RulesUploader {
+public class OntologyUploader {
 
-    private static final Logger log = LoggerFactory.getLogger(RulesUploader.class);
+    private static final Logger log = LoggerFactory.getLogger(OntologyUploader.class);
 
-    @Value("${fuseki.rulesFileName}")
-    private String rulesFileName;
+    @Value("${fuseki.ontologyFileName}")
+    private String ontologyFileName;
 
     @Value("${fuseki.endpointUrl}")
     private String endpointUrl;
@@ -31,33 +31,33 @@ public class RulesUploader {
     @Value("${fuseki.datasetName}")
     private String datasetName;
 
-    @Value("${fuseki.rulesGraphName}")
-    private String rulesGraph;
+    @Value("${fuseki.ontologyGraphName}")
+    private String ontologyGraph;
 
     @Autowired
     private ResourceLoader resourceLoader;
 
     @EventListener(ApplicationReadyEvent.class)
     public void runUpload() {
-        uploadRules();
+        uploadontology();
     }
 
-    private void uploadRules() {
+    private void uploadontology() {
         RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create()
                 .destination(endpointUrl + datasetName).queryEndpoint("query");
 
         log.error(endpointUrl + datasetName);
         try (RDFConnectionFuseki conn = (RDFConnectionFuseki) builder.build()) {
             log.info(conn.toString());
-            conn.put(rulesGraph, loadOntologyModel());
-            log.info("Rules uploaded successfully.");
+            conn.put(ontologyGraph, loadOntologyModel());
+            log.info("ontology uploaded successfully.");
         }
     }
 
     private Model loadOntologyModel() {
         Model ontmodel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         try {
-            InputStream stream = resourceLoader.getResource("classpath:" + rulesFileName).getInputStream();
+            InputStream stream = resourceLoader.getResource("classpath:" + ontologyFileName).getInputStream();
             ontmodel.read(stream, "", "TTL");
         } catch (IOException ioe) {
             log.error("OntologyModel loading failed. " + ioe.toString());
